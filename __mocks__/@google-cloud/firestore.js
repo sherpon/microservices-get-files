@@ -4,11 +4,17 @@
 
 let Firestore = jest.genMockFromModule('@google-cloud/firestore');
 
-let __mockObjectRef = {
-  id: '',
+let __resultIndex = 0;
+let __mockResultArray = [{}];
+
+const __setMockResultArray = (newMockResultArray) => {
+  __resultIndex = 0;
+  __mockResultArray = newMockResultArray;
 };
-const __setMockObjectRef = (newObjectRef) => {
-  __mockObjectRef = newObjectRef;
+
+const __getNextMockResult = () => {
+  __resultIndex++;
+  return __mockResultArray[__resultIndex-1];
 };
 
 const reference = {
@@ -16,10 +22,39 @@ const reference = {
     return {
       add: function () {
         return new Promise((resolve, reject) => {
-          resolve(__mockObjectRef);
+          resolve(__getNextMockResult());
+        });
+      },
+      doc: function () {
+        return {
+          update: function () {
+            return new Promise((resolve, reject) => {
+              resolve();
+            });
+          }
+        };
+      },
+      get: function () {
+        return new Promise((resolve, reject) => {
+          resolve(__getNextMockResult());
         });
       },
     };
+  },
+  get: function () {
+    return new Promise((resolve, reject) => {
+      resolve(__getNextMockResult());
+    });
+  },
+  set: function () {
+    return new Promise((resolve, reject) => {
+      resolve();
+    });
+  },
+  update: function () {
+    return new Promise((resolve, reject) => {
+      resolve();
+    });
   },
 };
 
@@ -35,14 +70,14 @@ class mockFirestore extends Firestore {
       },
       add: function () {
         return new Promise((resolve, reject) => {
-          resolve(__mockObjectRef);
+          resolve(__getNextMockResult());
         });
       },
     };
   }
 }
 
-mockFirestore.__setMockObjectRef = __setMockObjectRef;
+mockFirestore.__setMockResultArray = __setMockResultArray;
 mockFirestore.Timestamp = {
   now: function () {
     return { 
@@ -51,4 +86,5 @@ mockFirestore.Timestamp = {
     };
   }
 };
+
 module.exports = mockFirestore;
