@@ -1,0 +1,25 @@
+{
+  "name": "getfiles",
+  "version": "1.0.0",
+  "description": "## 1. Deploy",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sherpon/microservices-get-files.git"
+  },
+  "author": "Bruce Grover Lee",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sherpon/microservices-get-files/issues"
+  },
+  "homepage": "https://github.com/sherpon/microservices-get-files#readme",
+  "devDependencies": {
+    "jest": "^24.8.0"
+  },
+  "dependencies": {
+    "@google-cloud/firestore": "^2.2.1"
+  }
+}
