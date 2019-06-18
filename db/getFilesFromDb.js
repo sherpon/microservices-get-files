@@ -7,7 +7,7 @@ const addFileToDb = async (firestore, websiteId) => {
       let files = [];
       snapshot.forEach(doc => {
         // console.log(doc.id, '=>', doc.data());
-        const file = {...doc.data(), filename: doc.id};
+        const file = {...doc.data(), filename: doc.id, createdAt: doc.data().createdAt._seconds * 1000};
         files.push(file);
       });
       resolve(files);
