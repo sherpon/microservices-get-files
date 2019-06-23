@@ -1,7 +1,7 @@
 
 const addFileToDb = async (firestore, websiteId) => {
   return new Promise((resolve, reject) => {
-    const filesRef = firestore.collection('websites').doc(websiteId).collection('files');
+    const filesRef = firestore.collection('websites').doc(websiteId).collection('files').orderBy('createdAt', 'desc');
     filesRef.get()
     .then(snapshot => {
       let files = [];
