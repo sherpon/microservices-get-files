@@ -39,6 +39,15 @@ const reference = {
           resolve(__getNextMockResult());
         });
       },
+      orderBy: function () {
+        return {
+          get: function () {
+            return new Promise((resolve, reject) => {
+              resolve(__getNextMockResult());
+            });
+          },
+        };
+      },
     };
   },
   get: function () {
